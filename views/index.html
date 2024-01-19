@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload With Express</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="p-10  w-[700px] mx-auto">
+        <h1 class="text-gray-700 text-center text-2xl font-bold mb-7">Multiple File Upload With Express Js</h1>
+        <div class="border border-slate-200 shadow-md p-5 rounded-lg">
+            <form enctype="multipart/form-data" id="uploadForm">
+                <div class="mb-5">
+                    <label class="block mb-3 text-gray-600">Upload Files</label>
+                    <input type="file" id="imageFile" accept="image/*" multiple>
+                </div>
+                <h2></h2>
+                <h3></h3>
+                <div class="">
+                    <button class="bg-emerald-500 px-5 py-1 rounded-full shadow-sm text-white" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm')
+        const sendFile = async() => {
+            const imageFile =  document.getElementById('imageFile').files
+            const formData = new FormData()
+            Object.keys(imageFile).forEach(key => {
+                formData.append(imageFile.item(key).name, imageFile.item(key))
+            })
+
+            const response = await fetch('http://localhost:3500/upload',{
+                method: 'POST',
+                body: formData
+            })
+            console.log(formData)
+            const json = await response.json()
+            const h2 = document.querySelector('h2')
+            h2.textContent = `Status : ${json?.status}`
+            const h3 = document.querySelector('h3')
+            h3.textContent = `Message : ${json?.message}`
+            console.log(json)
+        }
+        uploadForm.addEventListener('submit',(e) => {
+            e.preventDefault()
+            sendFile()
+
+        })
+    </script>
+    
+</body>
+</html>
