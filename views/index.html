@@ -7,17 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="p-10  w-[700px] mx-auto">
-        <h1 class="text-gray-700 text-center text-2xl font-bold mb-7">Multiple File Upload With Express Js</h1>
+    <div class="p-10  w-[500px] mx-auto">
+        <h1 class="text-gray-700 text-center text-2xl font-bold mb-7">Multiple Files Upload With Express Js</h1>
         <div class="border border-slate-200 shadow-md p-5 rounded-lg">
             <form enctype="multipart/form-data" id="uploadForm">
                 <div class="mb-5">
                     <label class="block mb-3 text-gray-600">Upload Files</label>
-                    <input type="file" id="imageFile" accept="image/*" multiple>
+                    <input class="hidden" type="file" id="imageFile" accept="image/*" multiple>
+                    <div style="cursor: pointer;" id="myPhoto" class="w-full border border-dashed rounded-lg p-3" onclick="openFileInput()">
+                        <p class="text-2xl text-gray-400">Click Here to Upload Files</p>
+                    </div>
                 </div>
                 <h2></h2>
                 <h3></h3>
-                <div class="">
+                <div class="flex justify-center">
                     <button class="bg-emerald-500 px-5 py-1 rounded-full shadow-sm text-white" type="submit">Upload</button>
                 </div>
             </form>
@@ -27,6 +30,9 @@
     
 
     <script>
+         const openFileInput = () => {
+            document.getElementById('imageFile').click();
+            }
         const uploadForm = document.getElementById('uploadForm')
         const sendFile = async() => {
             const imageFile =  document.getElementById('imageFile').files
